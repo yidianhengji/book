@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.book.dao.ArticleMapper">
+    <resultMap type="com.pg.book.entity.Article" id="ArticleMap">
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="likeNumber" column="like_number" jdbcType="INTEGER"/>
+        <result property="commentId" column="comment_id" jdbcType="VARCHAR"/>
+        <result property="readNumber" column="read_number" jdbcType="INTEGER"/>
+        <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="ArticleMap">
+        select * from tb_article
+    </select>
+
+    <select id="queryOne" resultMap="ArticleMap">
+        select * from tb_article where uuid = #{uuid}
+    </select>
+
+    <insert id="insert">
+        insert into  tb_article(uuid, title, content, user_id, like_number, comment_id, modify_time, create_time)
+        values (#{uuid},#{title}, #{content}, #{userId}, #{likeNumber}, #{commentId}, #{modifyTime}, #{createTime})
+    </insert>
+
+    <update id="update">
+        update tb_article
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="likeNumber != null and likeNumber != ''">
+                like_number = #{likeNumber},
+            </if>
+            <if test="commentId != null and commentId != ''">
+                comment_id = #{commentId},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+</mapper>

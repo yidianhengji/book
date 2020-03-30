@@ -1,16 +1,16 @@
-package com.pg.book.dao;
+package com.pg.book.service;
 
 import com.github.pagehelper.Page;
 import com.pg.book.dto.ArticleDto;
 import com.pg.book.entity.Article;
 
-public interface ArticleMapper {
+public interface ArticleService {
 
     Page<Article> queryAll(ArticleDto articleDto);
 
     Article queryOne(String uuid);
 
-    int insert(Article article);
+    Article insert(Article article);
 
-    int update(Article article);
+    Article update(Article article);
 }

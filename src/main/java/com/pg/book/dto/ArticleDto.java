@@ -1,16 +1,16 @@
-package com.pg.book.entity;
+package com.pg.book.dto;
+
 import lombok.Data;
+
 import java.util.Date;
 
 @Data
-public class Article {
-    private String uuid;
+public class ArticleDto {
     private String title;
     private String content;
     private String userId;
-    private Integer likeNumber;
-    private String commentId;
-    private Integer readNumber;
     private Date createTime;
     private Date modifyTime;
+    private Integer pageSize;
+    private Integer pageNum;
 }
