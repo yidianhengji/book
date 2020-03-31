@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.book.dao.UserMapper">
+    <resultMap type="com.pg.book.entity.User" id="UserMap">
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="headPic" column="head_pic" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="userWebsite" column="user_website" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 注册 signUp -->
+    <select id="signIn" resultMap="UserMap">
+        select * from tb_user where phone = #{phone}
+    </select>
+
+    <select id="queryAll" resultMap="UserMap">
+        select * from tb_user
+    </select>
+
+    <!-- 查询手机号码是否存在 -->
+    <select id="queryPhone" resultType="java.lang.Integer">
+        select COUNT(phone) from tb_user where phone = #{phone}
+    </select>
+
+    <!-- 注册 signUp -->
+    <insert id="signUp">
+        insert into  tb_user(uuid, username, phone, password, create_time)
+        values (#{uuid},#{username}, #{phone}, #{password}, #{createTime})
+    </insert>
+
+    <update id="update">
+        update tb_article
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="likeNumber != null and likeNumber != ''">
+                like_number = #{likeNumber},
+            </if>
+            <if test="commentId != null and commentId != ''">
+                comment_id = #{commentId},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+</mapper>
